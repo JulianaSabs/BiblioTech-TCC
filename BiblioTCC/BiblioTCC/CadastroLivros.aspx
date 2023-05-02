@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CadastroLivros.aspx.cs" Inherits="BiblioTCC.CadastroLivros" %>
+<%@ Assembly Src="teste.cs" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
      <link rel="stylesheet" href="Assets/cadastroLivros.css" />
@@ -87,7 +89,7 @@
             </p>
         </div>
         <div class="modal-button">
-            <a id="modal-button-close2" onclick="FecharModal2()">Fechar</a>&nbsp<asp:Button ID="btnCSV" CssClass="ver-card-button" runat="server" Text="Importar"/>
+            <a id="modal-button-close2" onclick="FecharModal2()">Fechar</a>&nbsp<asp:Button ID="btnCSV" CssClass="ver-card-button" runat="server" Text="Importar" OnClick="btnCSV_Click"/>
         </div>
     </div>
 

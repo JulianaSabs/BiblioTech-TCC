@@ -55,6 +55,7 @@
                         <li class="nav-item"><a href="CadastroLivros.aspx" class="nav-link">Catalogação</a></li>
                         <li class="nav-item"><a href="CadastroEmprestimo.aspx" class="nav-link">Empréstimos</a></li>
                         <li class="nav-item"><a href="AdministracaoBiblioteca.aspx" class="nav-link">Administração</a></li>
+                        <li class="nav-item"><a href="Busca.aspx" class="nav-link">Busca</a></li>
                     </ul>
                 </div>
               </nav>

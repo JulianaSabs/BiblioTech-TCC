@@ -147,5 +147,30 @@ namespace BiblioTCC
         {
             Response.Redirect("ArquivoUpload/upload_livro.csv");
         }
+
+
+        protected void importarButton_Click(object sender, EventArgs e)
+        {
+            if (csvFileUpload.HasFile != false)
+            {
+                StreamReader arquivo = new StreamReader(csvFileUpload.PostedFile.InputStream, Encoding.Default);
+                ImportarSumula(arquivo);
+                csvFileUpload.Enabled = false;
+                btnCSV.Visible = false;
+                btnCSV.Visible = true;
+            }
+        }
+
+        private void ImportarSumula(StreamReader arquivo)
+        {
+            teste imp = new teste();
+         
+          
+        }
+
+        protected void btnCSV_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
