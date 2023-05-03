@@ -6,13 +6,18 @@
 
 
     <div class="container-all">
+
          <div class="pesquisar-div">
                 <br />
                 <br />
                 <div class="input-group">
-                    <asp:TextBox ID="pesquisarTextBox" CssClass="form-control border-end-0 border" runat="server" AutoPostBack="true" />
+                    <asp:DropDownList ID="genDropDownList" runat="server" CssClass="form-select" DataSourceID="genSqlDataSource" DataValueField="IdGenero" DataTextField="GeneroLivro" OnPreRender="genDropDownList_PreRender" AutoPostBack="true"></asp:DropDownList>
+                    <asp:SqlDataSource ID="genSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:BancoConnectionString %>" SelectCommand="SELECT * FROM [Genero]"></asp:SqlDataSource>
+                    <br />
+                     <asp:TextBox ID="pesquisarTextBox" CssClass="form-control border-end-0 border" runat="server" AutoPostBack="true" />
                     <asp:Button runat="server" ID="pesquisarButton" OnClick="pesquisarButton_Click" CssClass="btnPesquisar btn btn-outline-secondary text-white border-start-0 border ms-n3" Text="Pesquisar">
                     </asp:Button>
+                    <br />
                 </div>
             </div>
         <br />

@@ -15,7 +15,16 @@ body {
 .title-menu {
     
 }
-
+.seila {
+    text-decoration: none;
+    outline: none;
+    color: white;
+    background-color: #ddae3e !important;
+    background-color: #ddae3e;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
 .menu-container {
     display: flex;
     align-items: center;

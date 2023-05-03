@@ -23,11 +23,37 @@ namespace BiblioTCC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            codLivroLabel.Text = Request["livro"].ToString();
+            if (!IsPostBack)
+            {
+                Iniciar();
+            }
         }
 
+        protected void Iniciar()
+        {
+            string sql = "SELECT IdLivro, TituloLivro, AutorLivro, GeneroLivro, CapaLivro, SinopseLivro FROM [dbo].[Livros] WHERE IdLivro ="+ codLivroLabel.Text;
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
+            SqlCommand comando = new SqlCommand(sql, conn);
 
+            conn.Open();
 
+            SqlDataReader resultado = comando.ExecuteReader();
+            if (resultado.Read())
+            {
+                tituloLivro.InnerText = Convert.ToString(resultado["TituloLivro"]);
+               
+               
+            }
 
+            conn.Close();
+        }
+
+        protected void voltarBusca_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Busca.aspx");
+        }
     }
-}
+
+
+  }

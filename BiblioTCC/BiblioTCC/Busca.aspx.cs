@@ -26,7 +26,21 @@ namespace BiblioTCC
             {
                 // Preenche a Repeater com todos os livros
                 PreencherListaDeLivros();
+                PreencherGenero();
             }
+        }
+        protected void PreencherGenero()
+        {
+            string sql = "SELECT IdGenero, GeneroLivro FROM [dbo].[Genero]";
+            genSqlDataSource.SelectCommand = sql;
+
+        }
+
+
+        protected void genDropDownList_PreRender(object sender, EventArgs e)
+        {
+            genDropDownList.Items.Remove("");
+            genDropDownList.Items.Insert(0, "");
         }
 
         private void PreencherListaDeLivros()
@@ -49,16 +63,17 @@ namespace BiblioTCC
             {
                 sql += " WHERE (TituloLivro LIKE '%' + @pesquisa + '%' OR AutorLivro LIKE '%' + @pesquisa + '%' OR GeneroLivro LIKE '%' + @pesquisa + '%')";
             }
+            else
+            {
+                PreencherListaDeLivros();
+            }
 
             SqlCommand cmd = new SqlCommand(sql, conn);
             if (!string.IsNullOrEmpty(pesquisarTextBox.Text))
             {
                 cmd.Parameters.AddWithValue("@pesquisa", pesquisarTextBox.Text);
             }
-            else
-            {
-                PreencherListaDeLivros();
-            }
+           
 
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

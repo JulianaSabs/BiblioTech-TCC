@@ -155,6 +155,7 @@
     <Content Include="Assets\js\cadastroLivros.js" />
     <Content Include="Assets\js\default.js" />
     <Content Include="Assets\js\inicio.js" />
+    <Content Include="Assets\js\livro.js" />
     <Content Include="Assets\livro.css" />
     <Content Include="Assets\masterpage.css" />
     <Content Include="Assets\default.css" />
@@ -183,6 +184,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="ArquivoUpload\upload_livro.csv" />
     <Content Include="ArquivoUpload\emprestimo.csv" />
+    <Content Include="img\livro-sem-capa.png" />
     <Content Include="Livro.aspx" />
     <Content Include="Masterpageside.Master" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
