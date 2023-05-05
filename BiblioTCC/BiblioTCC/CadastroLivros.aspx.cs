@@ -149,28 +149,24 @@ namespace BiblioTCC
         }
 
 
-        protected void importarButton_Click(object sender, EventArgs e)
-        {
-            if (csvFileUpload.HasFile != false)
-            {
-                StreamReader arquivo = new StreamReader(csvFileUpload.PostedFile.InputStream, Encoding.Default);
-                ImportarSumula(arquivo);
-                csvFileUpload.Enabled = false;
-                btnCSV.Visible = false;
-                btnCSV.Visible = true;
-            }
-        }
+ 
 
-        private void ImportarSumula(StreamReader arquivo)
+        private void ImportarMopOnline(StreamReader arquivo)
         {
             teste imp = new teste();
-         
-          
+            imp.importarArquivo(arquivo);
+
         }
 
         protected void btnCSV_Click(object sender, EventArgs e)
         {
+            if (csvFileUpload.HasFile != false)
+            {
+                StreamReader arquivo = new StreamReader(csvFileUpload.PostedFile.InputStream, Encoding.Default);
+                ImportarMopOnline(arquivo);
+                csvFileUpload.Enabled = false;
 
+            }
         }
     }
 }
