@@ -10,10 +10,10 @@
                     <ItemTemplate>
                         <div class="materiais">
                             <div class="imagem">
-                                <img class="logo-img" src="" />
+                                <img class="logo-img" src="<%# DataBinder.Eval(Container.DataItem, "ImagemMaterial") %>" />
                             </div>
-                            <span><%# %></span>
-                            <span><%# %></span>
+                            <span><%# DataBinder.Eval(Container.DataItem, "Quantidade")  %></span>
+                            <span><%# DataBinder.Eval(Container.DataItem, "Nome")  %></span>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
