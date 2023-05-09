@@ -42,8 +42,10 @@ namespace BiblioTCC
             if (resultado.Read())
             {
                 tituloLivro.InnerText = Convert.ToString(resultado["TituloLivro"]);
-               
-               
+                sinopseLivro.InnerText = Convert.ToString(resultado["SinopseLivro"]);
+                autorLivro.InnerText = Convert.ToString(resultado["AutorLivro"]);
+                capaLivro.Src = Convert.ToString(resultado["CapaLivro"]);
+
             }
 
             conn.Close();
