@@ -67,12 +67,15 @@ namespace BiblioTCC
         }
 
         public void RegistrarEmprestimo(string nomeUsuario)
+
         {
+            DateTime dataSelecionada = DateTime.Parse(dataEmprestimoTextBox.Text);
+
             // definir a conexão com o banco de dados
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
            
 
-            // abrir a conexão com o banco de dados
+            // abrir a conexão com o banco de dadosS
             conn.Open();
 
             // inserir os dados do usuário na tabela Usuario
@@ -86,7 +89,7 @@ namespace BiblioTCC
             string queryEmprestimo = "INSERT INTO Emprestimo (IdUsuario, DataEmprestimo) VALUES (@IdUsuario, @DataEmprestimo); SELECT SCOPE_IDENTITY();";
             SqlCommand commandEmprestimo = new SqlCommand(queryEmprestimo, conn);
             commandEmprestimo.Parameters.AddWithValue("@IdUsuario", idUsuario);
-            commandEmprestimo.Parameters.AddWithValue("@DataEmprestimo", dataEmprestimoTextBox.Text);
+            commandEmprestimo.Parameters.Add("@DataEmprestimo", SqlDbType.Date).Value = dataSelecionadaS;
             int idEmprestimo = Convert.ToInt32(commandEmprestimo.ExecuteScalar());
 
             // inserir os dados do livro na tabela ItensEmprestimo
