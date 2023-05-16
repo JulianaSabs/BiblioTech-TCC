@@ -1,9 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Data;
+using System.Data.Sql;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
+using System.Globalization;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+
 
 namespace BiblioTCC
 {
@@ -11,15 +23,17 @@ namespace BiblioTCC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-             if (!IsPostBack)
+            if (!IsPostBack)
             {
-                PreencherMateriais();
+                // Preenche a Repeater com todos os livros
+                PreencherListaDeMateriais();
+             
             }
         }
 
-        private void PreencherMateriais()
+        private void PreencherListaDeMateriais()
         {
-            string sql = "SELECT IdLivro, TituloLivro, AutorLivro, CapaLivro, GeneroLivro FROM [dbo].[Livros]";
+            string sql = "SELECT IdMaterial, tipoMaterial, unidadesMaterial, imagemMaterial FROM [dbo].[Material]";
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
             SqlDataAdapter sda = new SqlDataAdapter(sql, conn);
             DataTable dt = new DataTable();
@@ -28,5 +42,4 @@ namespace BiblioTCC
             materiaisRepeater.DataBind();
         }
     }
-
 }

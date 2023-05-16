@@ -4,16 +4,15 @@
 
     <div class="main">
         <div class="main-content">
-
-       
+            
                 <asp:Repeater ID="materiaisRepeater" runat="server" EnableViewState="true">
                     <ItemTemplate>
                         <div class="materiais">
                             <div class="imagem">
-                                <img class="logo-img" src="<%# DataBinder.Eval(Container.DataItem, "ImagemMaterial") %>" />
+                                <img class="logo-img" src="<%# DataBinder.Eval(Container.DataItem, "imagemMaterial") %>" />
                             </div>
-                            <span><%# DataBinder.Eval(Container.DataItem, "Quantidade")  %></span>
-                            <span><%# DataBinder.Eval(Container.DataItem, "Nome")  %></span>
+                            <span><%# DataBinder.Eval(Container.DataItem, "tipoMaterial") %></span>
+                            <span><%# DataBinder.Eval(Container.DataItem, "unidadesMaterial") %></span>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
