@@ -8,10 +8,10 @@
             <br />
             <h2>Configurações Biblioteca <img src="Assets/img/add-user.png" alt="Alternate Text" height="30px" /> </h2>
             <label>Nome Instituição</label>
-            <asp:TextBox ID="bibliotecaTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:TextBox ID="bibliotecaTextBox" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
             <br />
             <label>Endereço</label>
-            <asp:TextBox ID="enderecoTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:TextBox ID="enderecoTextBox" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
             <br />
             <label>Máximo dias permitido</label>
             <asp:DropDownList ID="classeDropDownList" runat="server" class="form-select" >
@@ -24,7 +24,8 @@
             <br />
             <div class="row">
                 <div class="col-md-3">
-                    <asp:Button ID="btnSalvar" CssClass="btn btn-warning" runat="server" Text="Salvar"  />
+                    <asp:Button ID="btnEditar" CssClass="btn btn-warning" runat="server" Text="Editar" OnClick="btnEditar_Click" /> <br />
+                    <asp:Button ID="btnSalvar" CssClass="btn btn-warning" runat="server" Text="Salvar" OnClick="btnSalvar_Click"/> <br />
                 </div>
                 <div class="col-md-1"></div>
             </div>
@@ -33,20 +34,30 @@
              <div class="row">
                  <div class="cold-md-3">
                       <label>Telefone Instituição</label>
-                        <asp:TextBox ID="telefoneTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="telefoneTextBox" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
                  </div>
              </div>
               <br />
            <div class="row">
                  <div class="cold-md-3">
                       <label>Valor Multa</label>
-                        <asp:TextBox ID="multaTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="multaTextBox" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
                  </div>
              </div>
             <br />
           </div>
            <div class="footer">
             </div>
+
+       <div id="modal">
+        <div>
+            <h2 id="tituloModal"></h2>
+            <p id="mensagemModal"></p>
+        </div>
+        <div class="modal-button">
+            <a id="modal-button-close" onclick="FecharModal()">Fechar</a>
+        </div>
+    </div>
      </div>
     <script src="Assets/js/Admin.js"></script>
 </asp:Content>

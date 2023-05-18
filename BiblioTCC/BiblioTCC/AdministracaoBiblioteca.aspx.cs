@@ -24,8 +24,16 @@ namespace BiblioTCC
             if (!IsPostBack)
             {
                 CarregartTextBox();
+                btnSalvar.Visible = false;
             }
         }
+
+
+        protected void AbrirModal(string titulo, string mensagem)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, GetType(), "Javascript", "javascript: AbrirModal(`" + titulo + "`,`" + mensagem + "`);", true);
+        }
+
 
 
         protected void CarregartTextBox()
@@ -50,7 +58,44 @@ namespace BiblioTCC
             conn.Close();
         }
 
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
 
-       
+            btnSalvar.Visible = true;
+            bibliotecaTextBox.Enabled = true;
+            enderecoTextBox.Enabled = true;
+            multaTextBox.Enabled = true;
+            telefoneTextBox.Enabled = true;
+        }
+
+        protected void btnSalvar_Click(object sender, EventArgs e)
+        {
+           
+               
+                string sql = "UPDATE [dbo].[Biblioteca] SET NomeBiblio = @NomeBiblio, EnderecoBiblio = @EnderecoBiblio, TelefoneBiblio = @TelefoneBiblio WHERE IdBiblioteca = @IdBiblioteca ";
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
+                SqlCommand comando = new SqlCommand(sql, conn);
+
+                comando.Parameters.AddWithValue("@NomeBiblio", bibliotecaTextBox.Text);
+                comando.Parameters.AddWithValue("@IdBiblioteca", 1);
+                comando.Parameters.AddWithValue("@EnderecoBiblio", enderecoTextBox.Text);
+                comando.Parameters.AddWithValue("@TelefoneBiblio", telefoneTextBox.Text);
+
+                conn.Open();
+                comando.ExecuteReader();
+                conn.Close();
+
+                AbrirModal("Sucesso", "ALteração feita com exito");
+
+                CarregartTextBox();
+                btnSalvar.Visible = false;
+                btnEditar.Visible = true;
+
+                bibliotecaTextBox.Enabled = false;
+                enderecoTextBox.Enabled = false;
+                multaTextBox.Enabled = false;
+                telefoneTextBox.Enabled = false;
+
+        }
     }
 }
