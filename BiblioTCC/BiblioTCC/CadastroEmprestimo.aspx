@@ -1,8 +1,23 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CadastroEmprestimo.aspx.cs" Inherits="BiblioTCC.CadastroEmprestimo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" href="Assets/cadastroEmprestimo.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" rel="stylesheet" />
      
+    <div class="main">
+        <div id="AbasDiv" class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li id="emprestimoLi" runat="server">
+                    <asp:LinkButton ID="tab1" Text="Novo Empréstimo" runat="server" CommandArgument="1" OnClick="TrocarAbas" Font-Underline="false" CssClass="Initial"/>
+                </li>
+                &nbsp
+                <li id="validarLi" runat="server">
+                    <asp:LinkButton ID="tab2" Text="Validar Empréstimo" runat="server" CommandArgument="2" OnClick="TrocarAbas" Font-Underline="false" CssClass="Initial" />
+                </li>
+            </ul>
+            <br />
+        </div>
     <div class="container-all">
+         <div id="novoEmprestimoDiv" runat="server" visible="false" class="tab-navigation">
         <div class="left">
             <br />
             <h2>Novo Empréstimo <img src="Assets/img/add-user.png" alt="Alternate Text" height="30px" /> </h2>
@@ -34,9 +49,19 @@
           <div class="right">
                      <img src="Assets/img/imagen.svg" alt="SOCOROOOO" height="800px" />
                 </div>
-           
+           </div>
      </div>
-   
+         <div class="container-all">
+         <div id="validarEmprestimo" runat="server" visible="false">
+        <div class="left">
+            <br />
+            <h2>Validar Emprestimo <img src="Assets/img/add-user.png" alt="Alternate Text" height="30px" /> </h2>
+            </div>
+     </div>
+   </div>
+</div>
+
+
      <div id="modal">
         <div>
             <h2 id="tituloModal"></h2>

@@ -24,9 +24,55 @@ namespace BiblioTCC
         {
             if (!IsPostBack)
             {
-               
+                Iniciar();
             }
         }
+
+        protected void Iniciar()
+        {
+            AcessarAba(1);
+
+        }
+        protected void TrocarAbas(object sender, EventArgs e)
+        {
+            int NumeroDaAba = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+
+            AcessarAba(NumeroDaAba);
+        }
+
+        protected void AcessarAba(int NumeroDaAba)
+        {
+            switch (NumeroDaAba)
+            {
+                case 1:
+                    {
+                        novoEmprestimoDiv.Visible = true;
+                        validarEmprestimo.Visible = false;
+
+                        tab1.CssClass = "Clicked";
+                        tab2.CssClass = "Initial";
+
+                        emprestimoLi.Attributes.Add("class", "active");
+                        validarLi.Attributes.Add("class", "");
+
+                        break;
+                    }
+                case 2:
+                    {
+                        novoEmprestimoDiv.Visible = false;
+                        validarEmprestimo.Visible = true;
+
+                        tab1.CssClass = "Initial";
+                        tab2.CssClass = "Clicked";
+
+                        validarLi.Attributes.Add("class", "active");
+                        emprestimoLi.Attributes.Add("class", "");
+
+                        break;
+                    }
+            }
+        }
+
 
         protected void AbrirModal(string titulo, string mensagem)
         {
@@ -46,36 +92,18 @@ namespace BiblioTCC
         {
             Response.Redirect("ArquivoUpload/emprestimo.csv");
         }
-        protected void SubirUsuarioNoBanco(string nome)
-        {
-            
-            string sql = "INSERT INTO [dbo].[Usuario] (NomeUsuario, EmailUsuario) VALUES (@NomeUsuario, @EmailUsuario)";
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
-            SqlCommand comando = new SqlCommand(sql, conn);
-
-            comando.Parameters.AddWithValue("@NomeUsuario", nomeTextBox.Text);
-            comando.Parameters.AddWithValue("@EmailUsuario", emailTextBox.Text);
-            
-
-            conn.Open();
-            comando.ExecuteReader();
-            conn.Close();
-
-            LimparCampos();
-          
-
-        }
+       
 
         public void RegistrarEmprestimo(string nomeUsuario)
-
         {
+            //convertendo o valor da textbox para date
             DateTime dataSelecionada = DateTime.Parse(dataEmprestimoTextBox.Text);
 
             // definir a conexão com o banco de dados
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
            
 
-            // abrir a conexão com o banco de dadosS
+            // abrir a conexão com o banco de dados
             conn.Open();
 
             // inserir os dados do usuário na tabela Usuario
@@ -86,10 +114,11 @@ namespace BiblioTCC
             int idUsuario = Convert.ToInt32(commandUsuario.ExecuteScalar());
 
             // inserir os dados do empréstimo na tabela Emprestimo
-            string queryEmprestimo = "INSERT INTO Emprestimo (IdUsuario, DataEmprestimo) VALUES (@IdUsuario, @DataEmprestimo); SELECT SCOPE_IDENTITY();";
+            string queryEmprestimo = "INSERT INTO Emprestimo (IdUsuario, DataEmprestimo, Status) VALUES (@IdUsuario, @DataEmprestimo, @Status); SELECT SCOPE_IDENTITY();";
             SqlCommand commandEmprestimo = new SqlCommand(queryEmprestimo, conn);
             commandEmprestimo.Parameters.AddWithValue("@IdUsuario", idUsuario);
-            commandEmprestimo.Parameters.Add("@DataEmprestimo", SqlDbType.Date).Value = dataSelecionadaS;
+            commandEmprestimo.Parameters.Add("@DataEmprestimo", SqlDbType.Date).Value = dataSelecionada;
+            commandEmprestimo.Parameters.AddWithValue("@Status", 1);
             int idEmprestimo = Convert.ToInt32(commandEmprestimo.ExecuteScalar());
 
             // inserir os dados do livro na tabela ItensEmprestimo
@@ -120,13 +149,17 @@ namespace BiblioTCC
             
         }
 
+ 
+
         protected void LimparCampos()
         {
             nomeTextBox.Text = "";
             emailTextBox.Text = "";
             tomboTextBox.Text = "";
             dataEmprestimoTextBox.Text = "";
-           
+            livroTextBox.Text = "";
+
+
 
         }
 
