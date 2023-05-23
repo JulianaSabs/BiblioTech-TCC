@@ -11,9 +11,49 @@
     background-color: rgb(53, 53, 57) !important;
     font-size: 20px;
 }
-.row{
-   
+.form-control{
+    color:white;
 }
+.nav-tabs {
+    --bs-nav-tabs-border-width: 1px;
+    --bs-nav-tabs-border-color: rgb(53, 53, 57) !important; 
+    --bs-nav-tabs-border-radius: 0.375rem;
+    --bs-nav-tabs-link-hover-border-color: #e9ecef #e9ecef #dee2e6;
+    --bs-nav-tabs-link-active-color: #495057;
+    --bs-nav-tabs-link-active-bg: #fff;
+    --bs-nav-tabs-link-active-border-color: #dee2e6 #dee2e6 #fff;
+    border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
+}
+.Initial {
+    display: block;
+    padding: 4px 18px 4px 18px;
+   
+    float: left;
+    background-color: aliceblue;
+    color: Black;
+    font-weight: bold;
+}
+
+    .Initial:hover {
+        color: White;
+        background: url("../Images/SelectedButton.png") no-repeat right top;
+    }
+
+.Clicked {
+    float: left;
+    display: block;
+    background: url("../Images/SelectedButton.png") no-repeat right top;
+    padding: 4px 18px 4px 18px;
+    color: Black;
+    font-weight: bold;
+    color: White;
+    border-radius: 15%  0 0 0;
+}
+.navs{
+    list-style:none;
+}
+    .row {
+    }
 #page-wrapper{
     margin:100px;
 }
