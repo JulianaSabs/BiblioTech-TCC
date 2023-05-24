@@ -9,9 +9,9 @@
                     <div class="section-left-items">
                         <h1 class="section-left-items-h1" runat="server" id="tituloLivro"></h1>
                         <br />
-                        <h3 class="section-left-items-h3" id="autorLivro" runat="server"></h3>
+                        <h3 class="section-left-items-h3" id="autorLivroo" runat="server"></h3>
                         <div class="section-left-items-div">
-                          <p runat="server" id="sinopseLivro"></p>
+                          <p runat="server" id="sinopseLivroo"></p>
                         </div>
                         <div class="section-left-items-div2">
                         </div>

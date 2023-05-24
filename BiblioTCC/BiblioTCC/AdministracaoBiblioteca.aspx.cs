@@ -89,7 +89,7 @@ namespace BiblioTCC
 
                 CarregartTextBox();
                 btnSalvar.Visible = false;
-                btnEditar.Visible = true;
+                btnEditarr.Visible = true;
 
                 bibliotecaTextBox.Enabled = false;
                 enderecoTextBox.Enabled = false;

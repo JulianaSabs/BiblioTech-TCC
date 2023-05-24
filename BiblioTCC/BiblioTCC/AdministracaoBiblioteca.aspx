@@ -24,7 +24,7 @@
             <br />
             <div class="row">
                 <div class="col-md-3">
-                    <asp:Button ID="btnEditar" CssClass="btn btn-warning" runat="server" Text="Editar" OnClick="btnEditar_Click" /> <br />
+                    <asp:Button ID="btnEditarr" CssClass="btn btn-warning" runat="server" Text="Editar" OnClick="btnEditar_Click" /> <br />
                     <asp:Button ID="btnSalvar" CssClass="btn btn-warning" runat="server" Text="Salvar" OnClick="btnSalvar_Click"/> <br />
                 </div>
                 <div class="col-md-1"></div>

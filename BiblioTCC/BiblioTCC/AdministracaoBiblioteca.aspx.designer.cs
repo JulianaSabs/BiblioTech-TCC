@@ -42,6 +42,15 @@ namespace BiblioTCC
         protected global::System.Web.UI.WebControls.DropDownList classeDropDownList;
 
         /// <summary>
+        /// Controle btnEditarr.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditarr;
+
+        /// <summary>
         /// Controle btnSalvar.
         /// </summary>
         /// <remarks>
