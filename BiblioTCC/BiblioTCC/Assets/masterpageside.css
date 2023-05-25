@@ -90,7 +90,7 @@ body {
 }
 
 .main-menu {
-    position: fixed;
+    position: absolute;
     width: 25%;
     height: 100vh;
     background: rgb(32, 32, 107);
