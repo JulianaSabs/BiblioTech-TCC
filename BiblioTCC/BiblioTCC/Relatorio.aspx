@@ -1,38 +1,71 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Relatorio.aspx.cs" Inherits="BiblioTCC.Relatorio" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Masterpageside.Master" AutoEventWireup="true" CodeBehind="Relatorio.aspx.cs" Inherits="BiblioTCC.Relatorio" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" href="Assets/relatorio.css" />
-    <div class="area">
-    <nav class="main-menu">
-            <ul>
-                <li>
-                    <a href="https://jbfarrow.com">
-                        <i class="fa fa-home fa-2x"></i>
-                        <span class="nav-text">
-                           Configurações da Biblioteca
-                        </span>
-                    </a>
-                  
-                </li>
-                <li class="has-subnav">
-                    <a href="#">
-                        <i class="fa fa-cogs fa-2x"></i>
-                        <span class="nav-text">
-                            Gerenciador
-                        </span>
-                    </a>
-                    
-                </li>
-                <li class="has-subnav">
-                    <a href="#">
-                       <i class="fa fa-book fa-2x"></i>
-                        <span class="nav-text">
-                            Relatórios
-                        </span>
-                    </a>
-                </li>
-                </ul>
-        </nav>
-    </div>
 
+  
+
+    <asp:UpdatePanel runat="server">
+        <ContentTemplate>
+            <div class="relatorio-container">
+                <div class="relatorio-container-div">
+                    <div class="relatorio-forms-div">
+                        <div class="title-div">
+                            <asp:Label Text="Relatório" CssClass="title" runat="server" />
+                        </div>
+                        <div class="forms-container">
+                            <div class="forms-container-side">
+                                <div>
+                                    <asp:Label Text="Data Inicial" runat="server" />
+                                    <asp:TextBox ID="dataInicialTextBox" CssClass="form-control datepicker" runat="server" placeholder="mm/dd/yyyy" TextMode="Date" ReadOnly="false" />
+                                </div>
+                                <br />
+                                <div>
+                                    <asp:Label Text="Data Final" runat="server" />
+                                    <asp:TextBox ID="dataFinalTextBox" CssClass="form-control datepicker" runat="server" placeholder="mm/dd/yyyy" TextMode="Date" ReadOnly="false" />
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                        <div class="forms-container">
+                            <div class="forms-container-side">
+                            <div class="forms-container-side">
+                                <div>
+                                    <asp:Label Text="Tipo do Relatório" runat="server" />
+                                    <asp:DropDownList ID="tipoDoRelatorioDropDownList" runat="server" CssClass="form-control" OnPreRender="tipoDoRelatorioDropDownList_PreRender">
+                                        <asp:ListItem Value="1">Empréstimo Finalizado</asp:ListItem>
+                                        <asp:ListItem Value="2">Empréstimo Ativo</asp:ListItem>
+                                        <asp:ListItem Value="3">Empréstimo Pendente</asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                                <br />
+                                <div>
+                                    <asp:Label Text="Status" runat="server" />
+                                    <asp:DropDownList ID="statusDropDownList" runat="server" CssClass="form-control" DataSourceID="statusSqlDataSource" DataValueField="cod_status" DataTextField="status" OnPreRender="statusDropDownList_PreRender"></asp:DropDownList>
+                                    <asp:SqlDataSource ID="statusSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:BancoConnectionString %>"></asp:SqlDataSource>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="forms-container-button-div">
+                                <div class="forms-container-button-div-div">
+                                    <asp:Button ID="pesquisarButton" CssClass="pesquisarButton" Text="Pesquisar" runat="server" OnClick="pesquisarButton_Click" />
+                                    <asp:Button ID="extrairButton" Visible="false" CssClass="extrairButton" Text="Extrair" runat="server" OnClick="extrairButton_Click" />
+                                </div>
+                                <asp:Label ID="alertaLabel" ForeColor="#FBEF70" runat="server" />
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="relatorio-gridview-div">
+                        <div id="pesquisaDiv" class="forms-grid-div" runat="server" visible="false">
+                            <asp:GridView ID="pesquisaGridView" runat="server" Width="100%" CssClass="table table-bordered table-hove table-striped table-condensed" EmptyDataText="Não foi encontrado nenhum resultado com o filtro selecionado." DataSourceID="pesquisaSqlDataSource" />
+                            <asp:SqlDataSource ID="pesquisaSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:BancoConnectionString %>" />
+                        </div>
+                    </div>
+                </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+
+    <asp:Label ID="lawsonLabel" runat="server" Visible="False" />
+    <script src="Assets/js/relatorio.js"></script>
 
 </asp:Content>

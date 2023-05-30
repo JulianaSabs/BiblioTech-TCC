@@ -147,11 +147,8 @@ namespace BiblioTCC
         #region GridView e suas funções
         protected void PreencherEmprestimoGridView()
         {
-           
-            string sql = "SELECT u.IdUsuario, u.NomeUsuario as Nome, u.EmailUsuario As Email, FORMAT(e.DataEmprestimo, 'dd/MM/yyyy') as [Data de Empréstimo], s.Status AS Status FROM dbo.Usuario u LEFT JOIN dbo.Emprestimo e ON u.IdUsuario = e.IdUsuario LEFT JOIN dbo.Status s ON s.IdStatus = e.Status WHERE e.Status = 1";
-
-            
-
+            ExecutarProcedureAtualizacaoStatusEmprestimo();
+            string sql = "SELECT u.IdUsuario, u.NomeUsuario as Nome, u.EmailUsuario As Email, FORMAT(e.DataEmprestimo, 'dd/MM/yyyy') as [Data de Empréstimo], s.Status AS Status FROM dbo.Usuario u LEFT JOIN dbo.Emprestimo e ON u.IdUsuario = e.IdUsuario LEFT JOIN dbo.Status s ON s.IdStatus = e.Status WHERE e.Status in (1,3)";
             usuarioSqlDataSource.SelectCommand = sql;
         }
 
@@ -185,7 +182,16 @@ namespace BiblioTCC
                 e.Row.CssClass = "custom-header";
             }
         }
-
+        protected void ExecutarProcedureAtualizacaoStatusEmprestimo()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString))
+            {
+                SqlCommand command = new SqlCommand("AtualizarStatusEmprestimo", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+        }
         protected void validarEmprestimoGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             validarEmprestimoGridView.PageIndex = e.NewPageIndex;
