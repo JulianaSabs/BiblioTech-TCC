@@ -132,6 +132,24 @@ namespace BiblioTCC
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl validarEmprestimo;
 
         /// <summary>
+        /// Controle validarEmprestimoGridView.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView validarEmprestimoGridView;
+
+        /// <summary>
+        /// Controle usuarioSqlDataSource.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource usuarioSqlDataSource;
+
+        /// <summary>
         /// Controle csvLinkButton.
         /// </summary>
         /// <remarks>
@@ -157,6 +175,24 @@ namespace BiblioTCC
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCSV;
+
+        /// <summary>
+        /// Controle atualizacaoModal.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl atualizacaoModal;
+
+        /// <summary>
+        /// Controle xLinkButton.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton xLinkButton;
 
         /// <summary>
         /// Controle codIdUsuario.

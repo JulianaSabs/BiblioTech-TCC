@@ -27,10 +27,11 @@ namespace BiblioTCC
                 Iniciar();
             }
         }
-
+        #region Iniciar Abas
         protected void Iniciar()
         {
             AcessarAba(1);
+         
 
         }
         protected void TrocarAbas(object sender, EventArgs e)
@@ -68,31 +69,14 @@ namespace BiblioTCC
                         validarLi.Attributes.Add("class", "active");
                         emprestimoLi.Attributes.Add("class", "");
 
+                        PreencherEmprestimoGridView();
+
                         break;
                     }
             }
         }
-
-
-        protected void AbrirModal(string titulo, string mensagem)
-        {
-            ScriptManager.RegisterStartupScript(this.Page, GetType(), "Javascript", "javascript: AbrirModal(`" + titulo + "`,`" + mensagem + "`);", true);
-        }
-
-        protected void AbrirModal2()
-        {
-            ScriptManager.RegisterStartupScript(this.Page, GetType(), "Javascript", "javascript: AbrirModal2();", true);
-        }
-        protected void btnMassa_Click(object sender, EventArgs e)
-        {
-            AbrirModal2();
-        }
-
-        protected void csvLinkButton_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("ArquivoUpload/emprestimo.csv");
-        }
-       
+        #endregion
+        #region Cadastrar Empréstimo No Banco
 
         public void RegistrarEmprestimo(string nomeUsuario)
         {
@@ -149,8 +133,6 @@ namespace BiblioTCC
             
         }
 
- 
-
         protected void LimparCampos()
         {
             nomeTextBox.Text = "";
@@ -160,8 +142,108 @@ namespace BiblioTCC
             livroTextBox.Text = "";
 
 
-
         }
+        #endregion
+        #region GridView e suas funções
+        protected void PreencherEmprestimoGridView()
+        {
+           
+            string sql = "SELECT u.IdUsuario, u.NomeUsuario as Nome, u.EmailUsuario As Email, FORMAT(e.DataEmprestimo, 'dd/MM/yyyy') as [Data de Empréstimo], s.Status AS Status FROM dbo.Usuario u LEFT JOIN dbo.Emprestimo e ON u.IdUsuario = e.IdUsuario LEFT JOIN dbo.Status s ON s.IdStatus = e.Status WHERE e.Status = 1";
+
+            
+
+            usuarioSqlDataSource.SelectCommand = sql;
+        }
+
+        protected void validarEmprestimoGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Cells[1].Visible = false;
+               
+                // Obtém o valor da data de empréstimo da célula desejada
+                string dataEmpréstimo = e.Row.Cells[4].Text;
+
+                // Converte o valor da data para um objeto DateTime
+                DateTime data;
+                if (DateTime.TryParse(dataEmpréstimo, out data))
+                {
+                    // Verifica se a data de empréstimo passou de 7 dias
+                    if (DateTime.Now > data.AddDays(7))
+                    {
+                        // Altera a cor da célula que contém o nome do usuário para vermelho
+                        e.Row.Cells[2].ForeColor = System.Drawing.Color.Red;
+                        e.Row.Cells[3].ForeColor = System.Drawing.Color.Red;
+                        e.Row.Cells[4].ForeColor = System.Drawing.Color.Red;
+                        e.Row.Cells[5].ForeColor = System.Drawing.Color.Red;
+                    }
+                }
+            }
+            else if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[1].Visible = false;
+                e.Row.CssClass = "custom-header";
+            }
+        }
+
+        protected void validarEmprestimoGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            validarEmprestimoGridView.PageIndex = e.NewPageIndex;
+            PreencherEmprestimoGridView();
+            validarEmprestimoGridView.DataBind();
+        }
+
+        protected GridViewRow InstanciarLinha(object sender)
+        {
+            LinkButton lnk = (LinkButton)sender;
+            TableCell cell = new TableCell();
+            cell = (TableCell)lnk.Parent;
+            GridViewRow row = (GridViewRow)cell.Parent;
+            return row;
+        }
+
+        protected void editarCamposLinkButton_Click(object sender, EventArgs e)
+        {
+            int linha = InstanciarLinha(sender).RowIndex;
+            string cod_teste = validarEmprestimoGridView.Rows[linha].Cells[1].Text;
+            
+
+            AbrirModalDeAtualizacaoDeStatus();
+            
+        }
+
+        protected void AbrirModalDeAtualizacaoDeStatus()
+        {
+            atualizacaoModal.Visible = true;
+        }
+
+        protected void xLinkButton_Click(object sender, EventArgs e)
+        {
+            atualizacaoModal.Visible = false;
+        }
+        #endregion
+        #region Modal e Botões
+        protected void AbrirModal(string titulo, string mensagem)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, GetType(), "Javascript", "javascript: AbrirModal(`" + titulo + "`,`" + mensagem + "`);", true);
+        }
+
+        protected void AbrirModal2()
+        {
+            ScriptManager.RegisterStartupScript(this.Page, GetType(), "Javascript", "javascript: AbrirModal2();", true);
+        }
+        protected void btnMassa_Click(object sender, EventArgs e)
+        {
+            AbrirModal2();
+        }
+
+        protected void csvLinkButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ArquivoUpload/emprestimo.csv");
+        }
+
+        #endregion
+
 
         //protected void CarregarUsuarioDoBanco()
 
