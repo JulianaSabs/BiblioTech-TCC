@@ -41,11 +41,11 @@
             <br />
             <div class="row">
                 <div class="col-md-3">
-                    <asp:Button ID="btnEntrar" CssClass="btn btn-warning" runat="server" Text="Cadastrar" OnClick="btnEntrar_Click" />
+                    <asp:Button ID="btnEntrar" CssClass="pesquisarButton" runat="server" Text="Cadastrar" OnClick="btnEntrar_Click" />
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
-                    <asp:Button ID="btnMassa" runat="server" Text="Importar Livros em Massa" CssClass="btn btn-warning" CausesValidation="False" OnClick="btnMassa_Click"/>
+                    <asp:Button ID="btnMassa" runat="server" Text="Importar Livros em Massa" CssClass="pesquisarButton" CausesValidation="False" OnClick="btnMassa_Click"/>
                 </div>
             </div>
         </div>

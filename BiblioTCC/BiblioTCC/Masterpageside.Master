@@ -65,7 +65,7 @@
     <nav class="main-menu">
             <ul>
                 <li>
-                    <a href="AdiministracaoBiblioteca.aspx">
+                    <a href="AdministracaoBiblioteca.aspx">
                         <i class="fa fa-bookmark"></i>
                         <span class="nav-text">
                            Configurações da Biblioteca

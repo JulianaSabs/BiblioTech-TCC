@@ -10,7 +10,8 @@
                 <div class="relatorio-container-div">
                     <div class="relatorio-forms-div">
                         <div class="title-div">
-                            <asp:Label Text="Relatório" CssClass="title" runat="server" />
+                            <asp:Label Text="Relatório" CssClass="title" runat="server" /> &nbsp
+                         <i class="fa-sharp fa-regular fa-pen-to-square fa-xl" style="color: #ffd369;"></i>
                         </div>
                         <div class="forms-container">
                             <div class="forms-container-side">

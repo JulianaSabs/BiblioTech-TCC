@@ -22,12 +22,15 @@
                 <asp:ListItem Value="10">20</asp:ListItem>
              </asp:DropDownList>
             <br />
-            <div class="row">
-                <div class="col-md-3">
-                    <asp:Button ID="btnEditarr" CssClass="btn btn-warning" runat="server" Text="Editar" OnClick="btnEditar_Click" /> <br />
-                    <asp:Button ID="btnSalvar" CssClass="btn btn-warning" runat="server" Text="Salvar" OnClick="btnSalvar_Click"/> <br />
+            <div class="row ">
+                <div class="col-md-1">
+                    <asp:Button ID="btnEditarr" CssClass="pesquisarButton" runat="server" Text="Editar" OnClick="btnEditar_Click" /> <br />
+                   
                 </div>
-                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                     <asp:Button ID="btnSalvar" CssClass="pesquisarButton" runat="server" Text="Salvar" OnClick="btnSalvar_Click"/> <br />
+                </div>
+            </div>
             </div>
         </div>
           <div class="right">

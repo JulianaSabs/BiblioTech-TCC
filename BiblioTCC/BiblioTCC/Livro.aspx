@@ -2,6 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" href="Assets/livro.css" />
 
+    <div class="btnExit">
+         <asp:LinkButton runat="server" ID="btnVoltar" Text="Voltar" CssClass="pesquisarButton" Font-Underline="false"></asp:LinkButton>
+    </div>
     <div class="menu-container">
         <div class="menu-container-div">
             <div class="container-home">

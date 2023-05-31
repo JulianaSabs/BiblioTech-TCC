@@ -41,11 +41,11 @@
                     <br />
                     <div class="row">
                         <div class="col-md-3">
-                            <asp:Button ID="btnEntrar" CssClass="btn btn-warning" runat="server" Text="Cadastrar" OnClick="btnEntrar_Click" />
+                            <asp:Button ID="btnEntrar" CssClass="pesquisarButton" runat="server" Text="Cadastrar" OnClick="btnEntrar_Click" />
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-3">
-                            <asp:Button ID="btnMassa" runat="server" Text="Importar Usuários em Massa" CssClass="btn btn-warning" CausesValidation="False" OnClick="btnMassa_Click" />
+                            <asp:Button ID="btnMassa" runat="server" Text="Importar Usuários em Massa" CssClass="pesquisarButton" CausesValidation="False" OnClick="btnMassa_Click" />
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
             <div id="validarEmprestimo" runat="server" visible="false">
                 <div class="second-tab">
                     <h2>Validar Emprestimo
-                        <img src="Assets/img/add-user.png" alt="Alternate Text" height="30px" />
+                        <i class="fa-solid fa-check" style="color: #ffd369;"></i>
                     </h2>
                     <br />
                     <div class="col-md-12">
@@ -69,7 +69,7 @@
                                     <Columns>
                                         <asp:TemplateField ItemStyle-HorizontalAlign="Center">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="editarCamposLinkButton" CssClass="fa fa-cog" runat="server" OnClick="editarCamposLinkButton_Click" />
+                                                <asp:LinkButton ID="editarCamposLinkButton" CssClass="fa-solid fa-gear" ForeColor="#20206B"  runat="server" OnClick="editarCamposLinkButton_Click" Font-Underline="false" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -108,14 +108,17 @@
             <a id="modal-button-close2" onclick="FecharModal2()">Fechar</a>&nbsp<asp:Button ID="btnCSV" CssClass="ver-card-button" runat="server" Text="Importar" />
         </div>
     </div>
-
-    <div id="atualizacaoModal" class="atualizacaoModal" runat="server" visible="false">
+   <div id="atualizacaoModal" class="atualizacaoModal" runat="server" visible="false">
         <div class="xButtonDiv">
-            <asp:LinkButton ID="xLinkButton" CssClass="fa fa-times xButton" runat="server" OnClick="xLinkButton_Click" />
+            <asp:LinkButton ID="xLinkButton" CssClass="fa fa-times xButton" runat="server" OnClick="xLinkButton_Click" Font-Underline="false" />
         </div>
         <br />
         <div>
-            <label>Selecione o próximo Status do colaborador</label>
+            <label CssClass="esse" >Selecione o próximo Status do emprestimo</label>
+            <asp:DropDownList ID="statusDropDownList" runat="server" CssClass="form-select" DataSourceID="statusSqlDataSource" DataValueField="IdStatus" DataTextField="Status" OnPreRender="statusDropDownList_PreRender" AutoPostBack="true"></asp:DropDownList>
+            <asp:SqlDataSource ID="statusSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:BancoConnectionString %>" SelectCommand="SELECT * FROM [Status]"></asp:SqlDataSource>
+             <br />
+            <asp:Button ID="btnSalvar" CssClass="btn btn-warning" runat="server" Text="Salvar" OnClick="btnSalvar_Click" AutoPostBack="true"/>
         </div>
         <div>
            

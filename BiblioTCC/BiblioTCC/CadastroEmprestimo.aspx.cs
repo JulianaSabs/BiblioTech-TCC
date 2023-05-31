@@ -199,6 +199,38 @@ namespace BiblioTCC
             validarEmprestimoGridView.DataBind();
         }
 
+        protected void btnSalvar_Click(object sender, EventArgs e)
+        {
+
+
+            string sql = "UPDATE [dbo].[Emprestimo] SET Status = @Status  WHERE IdEmprestimo = @IdEmprestimo ";
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
+            SqlCommand comando = new SqlCommand(sql, conn);
+
+            comando.Parameters.AddWithValue("@IdEmprestimo", 1);
+            comando.Parameters.AddWithValue("@Status", statusDropDownList.SelectedValue);
+
+            conn.Open();
+            comando.ExecuteReader();
+            conn.Close();
+
+            AbrirModal("Sucesso", "ALteração feita com exito");
+            atualizacaoModal.Visible = false;
+
+            PreencherEmprestimoGridView();
+
+        }
+        protected void statusDropDownList_PreRender(object sender, EventArgs e)
+        {
+            statusDropDownList.Items.Remove("");
+            statusDropDownList.Items.Insert(0, "");
+        }
+        protected void PreencherStatus()
+        {
+            string sql = "SELECT IdStatus, Status FROM [dbo].[Status]";
+            statusSqlDataSource.SelectCommand = sql;
+
+        }
         protected GridViewRow InstanciarLinha(object sender)
         {
             LinkButton lnk = (LinkButton)sender;
