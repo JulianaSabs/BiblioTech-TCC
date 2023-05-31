@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #222240;
+  
     color: #ffffff;
 }
 
@@ -20,18 +20,31 @@ body {
 }
 
 .left {
-    background-color: #09092C;
+   
     margin: 50px 0 50px 50px;
     padding: 50px;
     height: calc(100% - 100px);
 }
 
 .right {
-    background-color: #09092C;
+   
     margin: 50px 50px 50px 0;
     padding: 50px;
     height: calc(100% - 100px);
     overflow: auto;
+}
+.pesquisarButton {
+    background-color: #FFD369;
+    outline: none;
+    border: none;
+    color: #08083D;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.4s all ease-in-out;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
 }
 
 .forms-container {
@@ -65,21 +78,7 @@ body {
 }
 
 .title {
-    font-size: 1.3rem;
-    font-weight: 600;
-}
-
-.pesquisarButton {
-    background-color: #FBEF70;
-    outline: none;
-    border: none;
-    color: #08083D;
-    font-weight: 700;
-    font-size: 16px;
-    transition: 0.4s all ease-in-out;
-    cursor: pointer;
-    padding: 10px;
-    margin-bottom: 10px;
+    font-size: 30px;
 }
 
 .extrairButton {
@@ -224,7 +223,7 @@ input[type="search"] {
 .relatorio-container-div {
     width: calc(100% - 100px);
     height: calc(100vh - 76px);
-    background-color: #09092C;
+ 
     overflow: auto;
 }
 

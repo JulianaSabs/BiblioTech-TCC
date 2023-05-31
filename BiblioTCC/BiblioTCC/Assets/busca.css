@@ -27,7 +27,19 @@
 .bg-hover-yellow:hover {
     background-color: yellow !important;
 }
-
+.pesquisarButton {
+    background-color: #FFD369;
+    outline: none;
+    border: none;
+    color: #08083D;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.4s all ease-in-out;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
 .cards-times {
     display: flex;
     flex-wrap: wrap;
@@ -61,4 +73,8 @@
 .logo-time {
     height: 200px;
     width: 160px;
+}
+.btnPesquisar:hover {
+    background-color: #FFD369;
+    color: black !important;
 }
