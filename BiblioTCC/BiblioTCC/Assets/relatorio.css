@@ -8,7 +8,25 @@ body {
   
     color: #ffffff;
 }
+.custom-gridview {
+    background-color: #f2f2f2;
+    color: #000000;
+    padding: 100px;
+}
 
+    .custom-gridview th,
+    .custom-gridview td {
+        border-color: #dddddd;
+    }
+
+    .custom-gridview .custom-header {
+        background-color: #f2f2f2;
+        color: #000000;
+    }
+
+.esse {
+    color: black;
+}
 .container {
     /*width: calc(100% - 100px);*/
     height: calc(100vh - 76px);
