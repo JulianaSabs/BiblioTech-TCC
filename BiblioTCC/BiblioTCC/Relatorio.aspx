@@ -39,11 +39,6 @@
                                     </asp:DropDownList>
                                 </div>
                                 <br />
-                                <div>
-                                    <asp:Label Text="Status" runat="server" />
-                                    <asp:DropDownList ID="statusDropDownList" runat="server" CssClass="form-control" DataSourceID="statusSqlDataSource" DataValueField="cod_status" DataTextField="status" OnPreRender="statusDropDownList_PreRender"></asp:DropDownList>
-                                    <asp:SqlDataSource ID="statusSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:BancoConnectionString %>"></asp:SqlDataSource>
-                                </div>
                                 <br />
                             </div>
                             <div class="forms-container-button-div">
@@ -58,7 +53,7 @@
                     </div>
                     <div class="relatorio-gridview-div">
                         <div id="pesquisaDiv" class="forms-grid-div" runat="server" visible="false">
-                            <asp:GridView ID="pesquisaGridView" runat="server" Width="100%" CssClass="table table-bordered table-hove table-striped table-condensed" EmptyDataText="Não foi encontrado nenhum resultado com o filtro selecionado." DataSourceID="pesquisaSqlDataSource" />
+                            <asp:GridView ID="pesquisaGridView" runat="server" Width="100%" CssClass="table table-bordered table-hover table-striped table-condensed custom-gridview" EmptyDataText="Não foi encontrado nenhum resultado com o filtro selecionado." DataSourceID="pesquisaSqlDataSource" OnRowDataBound="pesquisaGridView_RowDataBound" AutoGenerateColumns="true" />
                             <asp:SqlDataSource ID="pesquisaSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:BancoConnectionString %>" />
                         </div>
                     </div>
