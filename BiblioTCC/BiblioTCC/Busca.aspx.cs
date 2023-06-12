@@ -27,7 +27,9 @@ namespace BiblioTCC
                 // Preenche a Repeater com todos os livros
                 PreencherListaDeLivros();
                 PreencherGenero();
+
             }
+           
         }
         protected void PreencherGenero()
         {
@@ -36,6 +38,10 @@ namespace BiblioTCC
 
         }
 
+        protected void genDropDownList_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+           
+        }
 
         protected void genDropDownList_PreRender(object sender, EventArgs e)
         {
@@ -61,19 +67,34 @@ namespace BiblioTCC
 
             if (!string.IsNullOrEmpty(pesquisarTextBox.Text))
             {
-                sql += " WHERE (TituloLivro LIKE '%' + @pesquisa + '%' OR AutorLivro LIKE '%' + @pesquisa + '%' OR GeneroLivro LIKE '%' + @pesquisa + '%')";
+                sql += " WHERE (TituloLivro LIKE '%' + @pesquisa + '%' OR AutorLivro LIKE '%' + @pesquisa + '%')";
             }
-            else
+
+            if (!string.IsNullOrEmpty(genDropDownList.SelectedValue))
             {
-                PreencherListaDeLivros();
+                if (!string.IsNullOrEmpty(pesquisarTextBox.Text))
+                {
+                    sql += " AND ";
+                }
+                else
+                {
+                    sql += " WHERE ";
+                }
+
+                sql += "GeneroLivro = " + genDropDownList.SelectedValue;
             }
 
             SqlCommand cmd = new SqlCommand(sql, conn);
+
             if (!string.IsNullOrEmpty(pesquisarTextBox.Text))
             {
                 cmd.Parameters.AddWithValue("@pesquisa", pesquisarTextBox.Text);
             }
-           
+
+            if (!string.IsNullOrEmpty(genDropDownList.SelectedValue))
+            {
+                cmd.Parameters.AddWithValue("@genero", genDropDownList.SelectedValue);
+            }
 
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -83,10 +104,12 @@ namespace BiblioTCC
             timesRepeater.DataBind();
         }
 
-    
+
         protected void pesquisarButton_Click(object sender, EventArgs e)
         {
             CarregarRepeater();
         }
+
+      
     }
 }

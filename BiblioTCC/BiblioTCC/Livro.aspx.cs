@@ -51,9 +51,42 @@ namespace BiblioTCC
             conn.Close();
         }
 
-        protected void voltarBusca_Click(object sender, EventArgs e)
+        protected void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (fileUpload.HasFile)
+            {
+                string filename = Path.GetFileName(fileUpload.PostedFile.FileName);
+                string ext = Path.GetExtension(fileUpload.FileName);
+                fileUpload.SaveAs(Server.MapPath("CapaLivros/" + filename));
+
+                string sql = "UPDATE Livros SET CapaLivro = @CapaLivro WHERE IdLivro ="+ codLivroLabel.Text;
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
+                SqlCommand comando = new SqlCommand(sql, conn);
+
+
+                comando.Parameters.AddWithValue("@CapaLivro", "CapaLivros/" + filename);
+
+
+                conn.Open();
+                comando.ExecuteReader();
+                conn.Close();
+            }
+            fileUpload.Visible = false;
+            btnUpload.Visible = true;
+            btnSalvar.Visible = false;
+            Iniciar();
+        }
+
+        protected void btnVoltar_Click(object sender, EventArgs e)
         {
             Response.Redirect("Busca.aspx");
+        }
+
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+            fileUpload.Visible = true;
+            btnUpload.Visible = false;
+            btnSalvar.Visible = true;
         }
     }
 

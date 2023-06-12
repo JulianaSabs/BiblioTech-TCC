@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="Assets/livro.css" />
 
     <div class="btnExit">
-         <asp:LinkButton runat="server" ID="btnVoltar" Text="Voltar" CssClass="pesquisarButton" Font-Underline="false"></asp:LinkButton>
+         <asp:LinkButton runat="server" ID="btnVoltar" Text="Voltar" CssClass="pesquisarButton" Font-Underline="false" OnClick="btnVoltar_Click"></asp:LinkButton>
     </div>
     <div class="menu-container">
         <div class="menu-container-div">
@@ -22,6 +22,12 @@
                 </section>
                 <section class="section section-right">
                     <img id="capaLivro" runat="server" src="assets/img/pesquisa/image%2068.png" />
+                    <div>
+                    <asp:Button ID="btnUpload" runat="server" Text="AAAAA" OnClick="btnUpload_Click" Visible="true"  />
+                    <asp:FileUpload ID="fileUpload" runat="server" Visible="false" />
+                    <asp:Button ID="btnSalvar" runat="server" Text="Salvar" OnClick="btnSalvar_Click" Visible="false" />
+                    </div>
+                    
                 </section>
             </div>
         </div>

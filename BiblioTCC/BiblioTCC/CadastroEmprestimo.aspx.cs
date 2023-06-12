@@ -56,6 +56,13 @@ namespace BiblioTCC
                         emprestimoLi.Attributes.Add("class", "active");
                         validarLi.Attributes.Add("class", "");
 
+                        dataEmprestimoTextBox.Visible = true;
+                        nomeTextBox.Visible = true;
+                        emailTextBox.Visible = true;
+                        livroTextBox.Visible = true;
+                        tomboTextBox.Visible = true;
+
+
                         break;
                     }
                 case 2:
@@ -68,6 +75,12 @@ namespace BiblioTCC
 
                         validarLi.Attributes.Add("class", "active");
                         emprestimoLi.Attributes.Add("class", "");
+
+                        dataEmprestimoTextBox.Visible = false;
+                        nomeTextBox.Visible = false;
+                        emailTextBox.Visible = false;
+                        livroTextBox.Visible = false;
+                        tomboTextBox.Visible = false;
 
                         PreencherEmprestimoGridView();
 
@@ -106,10 +119,11 @@ namespace BiblioTCC
             int idEmprestimo = Convert.ToInt32(commandEmprestimo.ExecuteScalar());
 
             // inserir os dados do livro na tabela ItensEmprestimo
-            string querySocorro = "INSERT INTO LivrosEmprestimo (IdEmprestimo, IdLivro) VALUES (@IdEmprestimo, @IdLivro)";
+            string querySocorro = "INSERT INTO LivrosEmprestimo (IdEmprestimo, IdLivro,Livros) VALUES (@IdEmprestimo, @IdLivro, @Livros)";
             SqlCommand commandSocorro = new SqlCommand(querySocorro, conn);
             commandSocorro.Parameters.AddWithValue("@IdEmprestimo", idEmprestimo);
             commandSocorro.Parameters.AddWithValue("@IdLivro", tomboTextBox.Text);
+            commandSocorro.Parameters.AddWithValue("@Livros", livroTextBox.Text);
             commandSocorro.ExecuteNonQuery();
 
             // fechar a conexão com o banco de dados
@@ -148,7 +162,7 @@ namespace BiblioTCC
         protected void PreencherEmprestimoGridView()
         {
             ExecutarProcedureAtualizacaoStatusEmprestimo();
-            string sql = "SELECT u.IdUsuario, u.NomeUsuario as Nome, u.EmailUsuario As Email, FORMAT(e.DataEmprestimo, 'dd/MM/yyyy') as [Data de Empréstimo], s.Status AS Status FROM dbo.Usuario u LEFT JOIN dbo.Emprestimo e ON u.IdUsuario = e.IdUsuario LEFT JOIN dbo.Status s ON s.IdStatus = e.Status WHERE e.Status in (1,3)";
+            string sql = "SELECT e.IdEmprestimo, u.NomeUsuario as Nome, u.EmailUsuario As Email, lp.Livros As LivrosEmprestados, FORMAT(e.DataEmprestimo, 'dd/MM/yyyy') as [Data de Empréstimo], s.Status AS Status FROM dbo.Usuario u LEFT JOIN dbo.Emprestimo e ON u.IdUsuario = e.IdUsuario LEFT JOIN dbo.LivrosEmprestimo lp ON lp.IdEmprestimo = e.IdEmprestimo LEFT JOIN dbo.Status s ON s.IdStatus = e.Status WHERE e.Status <> 2";
             usuarioSqlDataSource.SelectCommand = sql;
         }
 
@@ -157,7 +171,7 @@ namespace BiblioTCC
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 e.Row.Cells[1].Visible = false;
-               
+
                 // Obtém o valor da data de empréstimo da célula desejada
                 string dataEmpréstimo = e.Row.Cells[4].Text;
 
@@ -199,38 +213,13 @@ namespace BiblioTCC
             validarEmprestimoGridView.DataBind();
         }
 
-        protected void btnSalvar_Click(object sender, EventArgs e)
+        protected void updateEmprestimo()
         {
 
 
-            string sql = "UPDATE [dbo].[Emprestimo] SET Status = @Status  WHERE IdEmprestimo = @IdEmprestimo ";
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
-            SqlCommand comando = new SqlCommand(sql, conn);
-
-            comando.Parameters.AddWithValue("@IdEmprestimo", 1);
-            comando.Parameters.AddWithValue("@Status", statusDropDownList.SelectedValue);
-
-            conn.Open();
-            comando.ExecuteReader();
-            conn.Close();
-
-            AbrirModal("Sucesso", "ALteração feita com exito");
-            atualizacaoModal.Visible = false;
-
-            PreencherEmprestimoGridView();
 
         }
-        protected void statusDropDownList_PreRender(object sender, EventArgs e)
-        {
-            statusDropDownList.Items.Remove("");
-            statusDropDownList.Items.Insert(0, "");
-        }
-        protected void PreencherStatus()
-        {
-            string sql = "SELECT IdStatus, Status FROM [dbo].[Status]";
-            statusSqlDataSource.SelectCommand = sql;
 
-        }
         protected GridViewRow InstanciarLinha(object sender)
         {
             LinkButton lnk = (LinkButton)sender;
@@ -240,25 +229,35 @@ namespace BiblioTCC
             return row;
         }
 
-        protected void editarCamposLinkButton_Click(object sender, EventArgs e)
+        protected void finalizarStatusLinkButton_Click(object sender, EventArgs e)
         {
             int linha = InstanciarLinha(sender).RowIndex;
             string cod_teste = validarEmprestimoGridView.Rows[linha].Cells[1].Text;
-            
 
-            AbrirModalDeAtualizacaoDeStatus();
-            
+            string sql = "UPDATE [dbo].[Emprestimo] SET Status = @Status, DataFinal = @DataFinal  WHERE IdEmprestimo = @IdEmprestimo ";
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
+            SqlCommand comando = new SqlCommand(sql, conn);
+
+            comando.Parameters.AddWithValue("@IdEmprestimo", cod_teste);
+            comando.Parameters.AddWithValue("@Status", 2);
+            comando.Parameters.AddWithValue("@DataFinal", DateTime.Now.Date);
+
+            conn.Open();
+            comando.ExecuteReader();
+            conn.Close();
+
+            AbrirModal("Sucesso", "Empréstimo Finalizado");
+         
+
+            PreencherEmprestimoGridView();
+            validarEmprestimoGridView.DataBind();
+
         }
 
-        protected void AbrirModalDeAtualizacaoDeStatus()
-        {
-            atualizacaoModal.Visible = true;
-        }
 
-        protected void xLinkButton_Click(object sender, EventArgs e)
-        {
-            atualizacaoModal.Visible = false;
-        }
+
+
+
         #endregion
         #region Modal e Botões
         protected void AbrirModal(string titulo, string mensagem)
@@ -281,6 +280,20 @@ namespace BiblioTCC
         }
 
         #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         //protected void CarregarUsuarioDoBanco()

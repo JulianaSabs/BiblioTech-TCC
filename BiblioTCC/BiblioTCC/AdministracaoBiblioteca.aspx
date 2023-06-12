@@ -14,21 +14,21 @@
             <asp:TextBox ID="enderecoTextBox" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
             <br />
             <label>Máximo dias permitido</label>
-            <asp:DropDownList ID="classeDropDownList" runat="server" class="form-select" >
-                <asp:ListItem></asp:ListItem>
-                 <asp:ListItem Value="5">5</asp:ListItem>
-                <asp:ListItem Value="10">10</asp:ListItem>
-                <asp:ListItem Value="10">15</asp:ListItem>
-                <asp:ListItem Value="10">20</asp:ListItem>
+            <asp:DropDownList ID="classeDropDownList" runat="server" class="form-select"  >
+                 <asp:ListItem Value="7">7</asp:ListItem>
+                <asp:ListItem Value="14">14</asp:ListItem>
+                <asp:ListItem Value="21">21</asp:ListItem>
+                <asp:ListItem Value="30">30</asp:ListItem>
              </asp:DropDownList>
             <br />
             <div class="row ">
-                <div class="col-md-1">
-                    <asp:Button ID="btnEditarr" CssClass="pesquisarButton" runat="server" Text="Editar" OnClick="btnEditar_Click" /> <br />
+                <div class="col-md-3">
+                    <asp:Button ID="btnEditar" CssClass="pesquisarButton" runat="server" Text="Editar" OnClick="btnEditar_Click" />
+                    <asp:Button ID="btnSalvar" CssClass="pesquisarButton" runat="server" Text="Salvar" OnClick="btnSalvar_Click"/> <br />
                    
                 </div>
-                <div class="col-md-1">
-                     <asp:Button ID="btnSalvar" CssClass="pesquisarButton" runat="server" Text="Salvar" OnClick="btnSalvar_Click"/> <br />
+                <div class="col-md-3">
+                    
                 </div>
             </div>
             </div>
@@ -43,8 +43,7 @@
               <br />
            <div class="row">
                  <div class="cold-md-3">
-                      <label>Valor Multa</label>
-                        <asp:TextBox ID="multaTextBox" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
+                     
                  </div>
              </div>
             <br />

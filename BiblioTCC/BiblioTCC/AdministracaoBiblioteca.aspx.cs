@@ -50,7 +50,6 @@ namespace BiblioTCC
                 bibliotecaTextBox.Text = Convert.ToString(resultado["NomeBiblio"]);
                 enderecoTextBox.Text = Convert.ToString(resultado["EnderecoBiblio"]);
                 classeDropDownList.SelectedValue = Convert.ToString(resultado["MultaMaximoDias"]);
-                multaTextBox.Text = Convert.ToString(resultado["ValorMulta"]);
                 telefoneTextBox.Text = Convert.ToString(resultado["TelefoneBiblio"]);
                 
             }
@@ -62,10 +61,11 @@ namespace BiblioTCC
         {
 
             btnSalvar.Visible = true;
+            btnEditar.Visible = false;
             bibliotecaTextBox.Enabled = true;
             enderecoTextBox.Enabled = true;
-            multaTextBox.Enabled = true;
             telefoneTextBox.Enabled = true;
+          
         }
 
         protected void btnSalvar_Click(object sender, EventArgs e)
@@ -89,13 +89,12 @@ namespace BiblioTCC
 
                 CarregartTextBox();
                 btnSalvar.Visible = false;
-                btnEditarr.Visible = true;
+                btnEditar.Visible = true;
 
                 bibliotecaTextBox.Enabled = false;
                 enderecoTextBox.Enabled = false;
-                multaTextBox.Enabled = false;
                 telefoneTextBox.Enabled = false;
-
+              
         }
     }
 }

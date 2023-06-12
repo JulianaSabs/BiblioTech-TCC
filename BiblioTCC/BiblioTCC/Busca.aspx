@@ -11,7 +11,7 @@
                 <br />
                 <br />
                 <div class="input-group">
-                    <asp:DropDownList ID="genDropDownList" runat="server" CssClass="form-select" DataSourceID="genSqlDataSource" DataValueField="IdGenero" DataTextField="GeneroLivro" OnPreRender="genDropDownList_PreRender" AutoPostBack="true"></asp:DropDownList>
+                    <asp:DropDownList ID="genDropDownList" runat="server" CssClass="form-select" DataSourceID="genSqlDataSource" DataValueField="IdGenero" DataTextField="GeneroLivro" OnPreRender="genDropDownList_PreRender" OnSelectedIndexChanged="genDropDownList_SelectedIndexChanged1" AutoPostBack="true"></asp:DropDownList>
                     <asp:SqlDataSource ID="genSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:BancoConnectionString %>" SelectCommand="SELECT * FROM [Genero]"></asp:SqlDataSource>
                     <br />
                      <asp:TextBox ID="pesquisarTextBox" CssClass="form-control border-end-0 border" runat="server" AutoPostBack="true" />
