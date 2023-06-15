@@ -1,4 +1,4 @@
-﻿body {
+﻿﻿body {
     margin: 0;
     background-color: rgb(53, 53, 57) !important;
 }
@@ -13,6 +13,7 @@ body {
     color: white;
     font-size: 20px;
 }
+
 .pesquisarButton {
     background-color: #FFD369;
     outline: none;
@@ -24,8 +25,9 @@ body {
     cursor: pointer;
     padding: 10px;
     margin-bottom: 10px;
-    border-radius:10px;
+    border-radius: 10px;
 }
+
     .pesquisarButton:hover {
         background-color: #e4a41c;
     }
@@ -192,7 +194,6 @@ modal-button-close2:hover {
     font-size: 16px;
     text-align: center;
     justify-content: center;
-    
 }
 
 .ver-card-button {

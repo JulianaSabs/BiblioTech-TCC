@@ -70,7 +70,41 @@
     .pesquisarButton:hover {
         background-color: #e4a41c;
     }
+.confirmarButton {
+    background-color: #43cb67;
+    outline: none;
+    border: none;
+    color: #08083D;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.4s all ease-in-out;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
 
+    .confirmarButton:hover {
+        background-color: #2cae4e;
+    }
+
+.cancelarButton {
+    background-color: #9191a3;
+    outline: none;
+    border: none;
+    color: #08083D;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.4s all ease-in-out;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+    .cancelarButton:hover {
+        background-color: #6d6d7b;
+    }
 
 /*FINAL MODAL*/
 
@@ -276,4 +310,42 @@ modal-button-close2:hover {
     font-weight: 500;
     text-align: center;
     line-height: 2.5rem;
+}
+
+.modalBackground {
+    background-color: #000;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.modalPopup {
+    top: 50%;
+    left: 50%;
+    background: #393E46;
+    border-radius: 10px;
+    background: #393E46;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    box-shadow: 0 5px 30px rgba(0,0,0,.30);
+}
+
+.modalHeader {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.modalBody {
+    margin-bottom: 10px;
+}
+
+.modalFooter {
+    text-align: right;
 }
