@@ -3,6 +3,32 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <link rel="stylesheet" href="Assets/cadastroEmprestimo.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-DHUb+7ku6ZJi4Ank7Im3ph2nbsfV/uP8cUGUJ+g3cfI2vQjiqISCl2UptclnTsoT" crossorigin="anonymous"></script>
+    <script>
+        var modalConfirmacaoID = '<%= confirmacaoPanel.ClientID %>';
+        var btnConfirmarID = '<%= btnConfirmar.ClientID %>';
+    var btnCancelarID = '<%= btnCancelar.ClientID %>';
+
+        function exibirModalConfirmacao() {
+            $('#' + modalConfirmacaoID).show();
+        }
+
+        function fecharModalConfirmacao() {
+            $('#' + modalConfirmacaoID).hide();
+        }
+
+        $(document).ready(function () {
+            $('#' + btnConfirmarID).click(function () {
+                // Fecha o modal de confirmação
+                fecharModalConfirmacao();
+            });
+
+            $('#' + btnCancelarID).click(function () {
+                // Fecha o modal de confirmação
+                fecharModalConfirmacao();
+            });
+        });
+    </script>
     
     <div class="main">
         <div id="AbasDiv" class="col-md-12">
@@ -28,25 +54,23 @@
                     <asp:TextBox ID="dataEmprestimoTextBox" CssClass="form-control datepicker" runat="server" placeholder="mm/dd/yyyy" TextMode="Date" ReadOnly="false" />
                     <br />
                     <label>Nome</label>
-                    <asp:TextBox ID="nomeTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="nomeTextBox" runat="server" CssClass="form-control" placeholder="Digite o nome do mutuário"></asp:TextBox>
                     <br />
                     <label>E-mail</label>
-                    <asp:TextBox ID="emailTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="emailTextBox" runat="server" CssClass="form-control" placeholder="email@email.com"></asp:TextBox>
                     <br />
                     <label>Livros</label>
-                    <asp:TextBox ID="livroTextBox" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                    <asp:TextBox ID="livroTextBox" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="Digite os livros"></asp:TextBox>
                     <br />
                     <label>Tombo</label>
-                    <asp:TextBox ID="tomboTextBox" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                    <asp:TextBox ID="tomboTextBox" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" placeholder="Digite o número do tombo"></asp:TextBox>
                     <br />
                     <div class="row">
                         <div class="col-md-3">
                             <asp:Button ID="btnEntrar" CssClass="pesquisarButton" runat="server" Text="Cadastrar" OnClick="btnEntrar_Click" />
                         </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-3">
-                            <asp:Button ID="btnMassa" runat="server" Text="Importar Usuários em Massa" CssClass="pesquisarButton" CausesValidation="False" OnClick="btnMassa_Click" />
-                        </div>
+                       
                     </div>
                 </div>
                 <div class="right">
@@ -112,6 +136,14 @@
         </div>
     </div>
   
+        <asp:Panel ID="confirmacaoPanel" runat="server" CssClass="modalPopup" style="display: none;">
+            <h3>Deseja finalizar o empréstimo?</h3>
+            <p>A ação não poderá ser desfeita</p>
+            <div class="buttons">
+                <asp:Button ID="btnConfirmar" CssClass="confirmarButton" runat="server" Text="Confirmar" OnClick="btnConfirmar_Click" />
+                <asp:Button ID="btnCancelar" CssClass="cancelarButton" runat="server" Text="Cancelar" OnClick="btnCancelar_Click" />
+            </div>
+        </asp:Panel>
   
     <asp:Label runat="server" ID="codIdUsuario" Visible="true" AutoPostBack="false"></asp:Label>
     <script type="text/javascript" src="Scripts/jquery-3.4.1.min.js "></script>

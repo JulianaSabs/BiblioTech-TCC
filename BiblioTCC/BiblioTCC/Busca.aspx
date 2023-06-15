@@ -19,6 +19,7 @@
                     </asp:Button>
                     <br />
                 </div>
+             <asp:Label ID="alertaLabel" ForeColor="#FBEF70" runat="server" />
             </div>
         <br />
         <div class="container-all-inside">
@@ -28,10 +29,19 @@
                     <ItemTemplate>
                         <div class="times" id="<%# DataBinder.Eval(Container.DataItem, "IdLivro") %>" onclick="RedirecionarParaTime(<%# DataBinder.Eval(Container.DataItem, "IdLivro") %>)">
                             <img class="logo-time" src="<%# DataBinder.Eval(Container.DataItem, "CapaLivro") %>" />
-                            <span><%# DataBinder.Eval(Container.DataItem, "TituloLivro") %></span>
+                            <div class="text-repeater">
+                                <span><%# DataBinder.Eval(Container.DataItem, "TituloLivro") %></span>
+                                <br />
                             <span><%# DataBinder.Eval(Container.DataItem, "AutorLivro") %></span>
+                            </div>   
                         </div>
                     </ItemTemplate>
+                    <FooterTemplate>
+                     <asp:Label ID="lblEmptyData"
+                            Text="Nenhum livro encontrado" runat="server" Visible="false">
+                     </asp:Label> 
+                     </table>           
+                     </FooterTemplate>
                 </asp:Repeater>
 
             </div>

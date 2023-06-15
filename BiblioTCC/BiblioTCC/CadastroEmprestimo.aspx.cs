@@ -14,6 +14,8 @@ using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Net;
+using System.Net.Mail;
 
 
 namespace BiblioTCC
@@ -129,6 +131,7 @@ namespace BiblioTCC
             // fechar a conexão com o banco de dados
             conn.Close();
             LimparCampos();
+
         }
 
 
@@ -157,6 +160,8 @@ namespace BiblioTCC
 
 
         }
+     
+     
         #endregion
         #region GridView e suas funções
         protected void PreencherEmprestimoGridView()
@@ -196,7 +201,7 @@ namespace BiblioTCC
                 e.Row.CssClass = "custom-header";
             }
         }
-        protected void ExecutarProcedureAtualizacaoStatusEmprestimo()
+        public void ExecutarProcedureAtualizacaoStatusEmprestimo()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString))
             {
@@ -204,7 +209,46 @@ namespace BiblioTCC
                 command.CommandType = CommandType.StoredProcedure;
                 conn.Open();
                 command.ExecuteNonQuery();
+
+                // Verificar os empréstimos com mais de 7 dias e enviar e-mail para os usuários
+                string query = "SELECT Usuario.EmailUsuario, LivrosEmprestimo.Livros FROM Emprestimo " +
+                               "INNER JOIN Usuario ON Emprestimo.IdUsuario = Usuario.IdUsuario " +
+                               "INNER JOIN LivrosEmprestimo ON Emprestimo.IdEmprestimo = LivrosEmprestimo.IdEmprestimo " +
+                               "WHERE Emprestimo.DataEmprestimo <= DATEADD(day, -7, GETDATE()) AND Emprestimo.Status = 1";
+                SqlCommand commandVerificarEmprestimos = new SqlCommand(query, conn);
+                using (SqlDataReader reader = commandVerificarEmprestimos.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string emailUsuario = reader["EmailUsuario"].ToString();
+                        string livroEmprestado = reader["Livros"].ToString();
+
+                        // Enviar e-mail de notificação para o usuário
+                        string assunto = "Aviso de empréstimo atrasado ETEC Irmã Agostina";
+                        string corpoMensagem = $"Seu empréstimo do livro(s) '{livroEmprestado}' está atrasado. Favor devolvê-lo o mais rápido possível.";
+                        EnviarEmail(emailUsuario, assunto, corpoMensagem);
+                    }
+                }
             }
+        }
+
+        public void EnviarEmail(string emailDestinatario, string assunto, string corpoMensagem)
+        {
+            // Configurações do cliente SMTP do Gmail
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+            smtpClient.EnableSsl = true;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential("biblio.tech.etec@gmail.com", "Biblioteca2023@");
+
+            // Criação da mensagem de e-mail
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("seu-email@gmail.com");
+            mailMessage.To.Add(emailDestinatario);
+            mailMessage.Subject = assunto;
+            mailMessage.Body = corpoMensagem;
+
+            // Envio do e-mail
+            smtpClient.Send(mailMessage);
         }
         protected void validarEmprestimoGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
@@ -213,12 +257,7 @@ namespace BiblioTCC
             validarEmprestimoGridView.DataBind();
         }
 
-        protected void updateEmprestimo()
-        {
-
-
-
-        }
+     
 
         protected GridViewRow InstanciarLinha(object sender)
         {
@@ -234,7 +273,20 @@ namespace BiblioTCC
             int linha = InstanciarLinha(sender).RowIndex;
             string cod_teste = validarEmprestimoGridView.Rows[linha].Cells[1].Text;
 
-            string sql = "UPDATE [dbo].[Emprestimo] SET Status = @Status, DataFinal = @DataFinal  WHERE IdEmprestimo = @IdEmprestimo ";
+            // Armazena o IdEmprestimo em uma variável de sessão para ser acessada no evento do botão de confirmação
+            Session["IdEmprestimo"] = cod_teste;
+
+            // Exibe o modal de confirmação
+            ScriptManager.RegisterStartupScript(this, GetType(), "exibirModal", "exibirModalConfirmacao();", true);
+        }
+
+        protected void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            // Obtém o IdEmprestimo armazenado na variável de sessão
+            string cod_teste = Session["IdEmprestimo"].ToString();
+
+            // Realiza o update no banco de dados
+            string sql = "UPDATE [dbo].[Emprestimo] SET Status = @Status, DataFinal = @DataFinal WHERE IdEmprestimo = @IdEmprestimo";
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
             SqlCommand comando = new SqlCommand(sql, conn);
 
@@ -243,15 +295,23 @@ namespace BiblioTCC
             comando.Parameters.AddWithValue("@DataFinal", DateTime.Now.Date);
 
             conn.Open();
-            comando.ExecuteReader();
+            comando.ExecuteNonQuery();
             conn.Close();
 
+            // Exibe uma mensagem de sucesso
             AbrirModal("Sucesso", "Empréstimo Finalizado");
-         
 
             PreencherEmprestimoGridView();
             validarEmprestimoGridView.DataBind();
 
+            // Fecha o modal de confirmação
+            ScriptManager.RegisterStartupScript(this, GetType(), "fecharModal", "fecharModalConfirmacao();", true);
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            // Limpa a variável de sessão
+            Session.Remove("IdEmprestimo");
         }
 
 
@@ -269,10 +329,7 @@ namespace BiblioTCC
         {
             ScriptManager.RegisterStartupScript(this.Page, GetType(), "Javascript", "javascript: AbrirModal2();", true);
         }
-        protected void btnMassa_Click(object sender, EventArgs e)
-        {
-            AbrirModal2();
-        }
+      
 
         protected void csvLinkButton_Click(object sender, EventArgs e)
         {

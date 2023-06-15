@@ -1,43 +1,43 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CadastroLivros.aspx.cs" Inherits="BiblioTCC.CadastroLivros" %>
 <%@ Assembly Src="teste.cs" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
      <link rel="stylesheet" href="Assets/cadastroLivros.css" />
     <script src="//code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        function ShowImagePreview(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#<%=ImgPrv.ClientID%>').prop('src', e.target.result)
-                        .width(360)
-                        .height(400);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
+<script type="text/javascript">
+    function ShowImagePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#<%=ImgPrv.ClientID%>').prop('src', e.target.result)
+                    .width(360)
+                    .height(400);
+            };
+            reader.readAsDataURL(input.files[0]);
         }
-    </script>
+    }
+</script>
 
     <div class="container-all">
         <div class="left">
             <h2>Novo Livro <img src="Assets/img/add-books.png" alt="Alternate Text" height="30px" /> </h2>
             <label>Selecione o gênero</label>
-            <asp:DropDownList ID="genDropDownList" runat="server" CssClass="form-select" DataSourceID="genSqlDataSource" DataValueField="IdGenero" DataTextField="GeneroLivro" OnPreRender="genDropDownList_PreRender" AutoPostBack="true"></asp:DropDownList>
+            <asp:DropDownList ID="genDropDownList" runat="server" CssClass="form-select" DataSourceID="genSqlDataSource"  DataValueField="IdGenero" DataTextField="GeneroLivro" OnPreRender="genDropDownList_PreRender" AutoPostBack="true"></asp:DropDownList>
             <asp:SqlDataSource ID="genSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:BancoConnectionString %>" SelectCommand="SELECT * FROM [Genero]"></asp:SqlDataSource>
             <br />
             <label>Titulo</label>
-            <asp:TextBox ID="tituloTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:TextBox ID="tituloTextBox" runat="server" CssClass="form-control" placeholder="Digite o título do livro"></asp:TextBox>
             <br />
             <label>Autor</label>
-            <asp:TextBox ID="autorTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:TextBox ID="autorTextBox" runat="server" CssClass="form-control" placeholder="Digite o autor do livro"></asp:TextBox>
             <br />
             <label>Tombo</label>
-            <asp:TextBox ID="tomboTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:TextBox ID="tomboTextBox" runat="server" CssClass="form-control" placeholder="Digite o número do tombo"></asp:TextBox>
             <br />
             <label>Sinopse</label>
-            <asp:TextBox ID="sinopseTextBox" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="5"></asp:TextBox>
+            <asp:TextBox ID="sinopseTextBoxx" runat="server" CssClass="form-control"  placeholder="Digite a sinopse do livro" TextMode="MultiLine" Rows="5"></asp:TextBox>
             <br />
             <div class="row">
                 <div class="col-md-3">

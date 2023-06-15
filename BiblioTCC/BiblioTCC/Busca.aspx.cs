@@ -27,6 +27,7 @@ namespace BiblioTCC
                 // Preenche a Repeater com todos os livros
                 PreencherListaDeLivros();
                 PreencherGenero();
+                timesRepeater.DataBind();
 
             }
            
@@ -64,12 +65,12 @@ namespace BiblioTCC
         {
             string sql = "SELECT IdLivro, TituloLivro, AutorLivro, CapaLivro, GeneroLivro FROM [dbo].[Livros]";
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoConnectionString"].ConnectionString);
-
+           
             if (!string.IsNullOrEmpty(pesquisarTextBox.Text))
             {
                 sql += " WHERE (TituloLivro LIKE '%' + @pesquisa + '%' OR AutorLivro LIKE '%' + @pesquisa + '%')";
             }
-
+           
             if (!string.IsNullOrEmpty(genDropDownList.SelectedValue))
             {
                 if (!string.IsNullOrEmpty(pesquisarTextBox.Text))
@@ -83,6 +84,7 @@ namespace BiblioTCC
 
                 sql += "GeneroLivro = " + genDropDownList.SelectedValue;
             }
+           
 
             SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -100,13 +102,22 @@ namespace BiblioTCC
             DataTable dt = new DataTable();
             sda.Fill(dt);
 
+
             timesRepeater.DataSource = dt;
             timesRepeater.DataBind();
+
+            if (timesRepeater.Items.Count == 0)
+            {
+                // Nenhum livro encontrado, exibe a Label
+                Label lblEmptyData = (Label)timesRepeater.Controls[timesRepeater.Controls.Count - 1].FindControl("lblEmptyData");
+                lblEmptyData.Visible = true;
+            }
         }
 
 
         protected void pesquisarButton_Click(object sender, EventArgs e)
         {
+           
             CarregarRepeater();
         }
 

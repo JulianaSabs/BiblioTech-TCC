@@ -74,15 +74,6 @@
                   
                 </li>
                 <li class="has-subnav">
-                    <a href="GerenciadorBiblioteca.aspx">
-                        <i class="fa fa-cogs fa-2x"></i>
-                        <span class="nav-text">
-                            Gerenciador
-                        </span>
-                    </a>
-                    
-                </li>
-                <li class="has-subnav">
                     <a href="Relatorio.aspx">
                        <i class="fa fa-book fa-2x"></i>
                         <span class="nav-text">

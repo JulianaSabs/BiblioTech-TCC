@@ -71,7 +71,7 @@ namespace BiblioTCC
             comando.Parameters.AddWithValue("@GeneroLivro", genDropDownList.SelectedValue);
             comando.Parameters.AddWithValue("@CapaLivro", "CapaLivros/" + filename);
             comando.Parameters.AddWithValue("@Tombo", tomboTextBox.Text);
-            comando.Parameters.AddWithValue("@SinopseLivro", sinopseTextBox.Text);
+            comando.Parameters.AddWithValue("@SinopseLivro", sinopseTextBoxx.Text);
 
             conn.Open();
             comando.ExecuteReader();
@@ -133,7 +133,7 @@ namespace BiblioTCC
             tituloTextBox.Text = "";
             autorTextBox.Text = "";
             tomboTextBox.Text = "";
-            sinopseTextBox.Text = "";
+            sinopseTextBoxx.Text = "";
             PreencherGenero();
 
         }
