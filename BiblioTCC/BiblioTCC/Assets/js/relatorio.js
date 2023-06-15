@@ -9,6 +9,6 @@ function AlterarCorTituloDaPagina() {
     tituloDaPagina.style.borderBottom = "3px solid #FFD369";
 }
 function AlterarCorMenuLateral() {
-    let menuLateral = document.querySelector("div.area > nav > ul > li:nth-child(3) > a");
+    let menuLateral = document.querySelector("div.area > nav > ul > li:nth-child(2) > a");
     menuLateral.style.color = "#FFD369";
 }
